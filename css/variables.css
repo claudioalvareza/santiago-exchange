@@ -1,0 +1,81 @@
+/* css/variables.css - Design System Tokens */
+:root {
+    /* Colors - Travel Lifestyle Aesthetic */
+    /* Primary brand color */
+    --primary: #16A7C8;          /* Turquoise */
+    --primary-light: #44C7E6;
+    --primary-dark: #0F839E;
+    
+    /* Supporting colors */
+    --navy: #0B1C2C;             /* Deep navy blue */
+    --ocean: #1E3A5F;            /* Ocean blue */
+    --coral: #FF6B5C;            /* Sunset coral */
+    --sand: #F5F3EF;             /* Soft sand */
+    
+    /* Backgrounds - Alternating and gradients */
+    --bg-main: var(--sand);
+    --bg-light: #FFFFFF;
+    --bg-card: #FFFFFF;
+    --bg-dark: var(--ocean);
+    --bg-darker: var(--navy);
+    --bg-gradient: linear-gradient(135deg, var(--navy) 0%, var(--ocean) 100%);
+    --bg-sand-gradient: linear-gradient(135deg, var(--sand) 0%, #EAE7DF 100%);
+    
+    /* Text Colors */
+    --text-main: var(--navy);
+    --text-muted: #4A5B6D;       
+    --text-light: #FFFFFF;
+    
+    /* Typography */
+    --font-heading: 'Space Grotesk', 'Sora', sans-serif;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    
+    /* Spacing System */
+    --space-1: 0.25rem;  /* 4px */
+    --space-2: 0.5rem;   /* 8px */
+    --space-3: 1rem;     /* 16px */
+    --space-4: 1.5rem;   /* 24px */
+    --space-5: 2rem;     /* 32px */
+    --space-6: 3rem;     /* 48px */
+    --space-8: 4rem;     /* 64px */
+    --space-12: 6rem;    /* 96px */
+    --space-16: 8rem;    /* 128px */
+    
+    /* Layout */
+    --container-max: 1200px;
+    --radius-sm: 0.5rem;
+    --radius-md: 1rem;
+    --radius-lg: 1.5rem;
+    --radius-xl: 2rem;
+    
+    /* Shadows - Editorial / Soft */
+    --shadow-sm: 0 4px 10px rgba(11, 28, 44, 0.05);
+    --shadow-md: 0 10px 30px rgba(11, 28, 44, 0.08);
+    --shadow-lg: 0 20px 40px rgba(11, 28, 44, 0.12);
+    --shadow-xl: 0 30px 60px rgba(11, 28, 44, 0.15);
+    --shadow-glow: 0 0 20px rgba(22, 167, 200, 0.4);
+    
+    /* Glassmorphism */
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --glass-blur: blur(20px);
+    
+    --glass-dark-bg: rgba(11, 28, 44, 0.75);
+    --glass-dark-border: rgba(255, 255, 255, 0.1);
+    
+    /* Transitions */
+    --transition-fast: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-normal: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-slow: 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Dark Mode Tokens (Can be toggled via class on body) */
+.dark-theme {
+    --bg-main: var(--navy);
+    --bg-light: var(--ocean);
+    --bg-card: var(--ocean);
+    --text-main: #F5F3EF;
+    --text-muted: #A3B5C4;
+    --glass-bg: var(--glass-dark-bg);
+    --glass-border: var(--glass-dark-border);
+}
