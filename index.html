@@ -3,359 +3,807 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Santiago Exchange | Residencias para Estudiantes Internacionales</title>
+    <title>Santiago Exchange | React Redesign Full Home</title>
     
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Santiago Exchange ofrece residencias para estudiantes en Santiago completamente equipadas y ubicadas cerca de las principales universidades para programas de intercambio.">
-    <meta name="keywords" content="residencias para estudiantes en santiago, alojamiento estudiantes santiago, residencias universitarias santiago, alojamiento estudiantes extranjeros santiago, student housing santiago, student accommodation santiago">
-    <link rel="canonical" href="https://santiagoexchange.com/">
-    
-    <!-- Open Graph / Social Media Meta Tags -->
-    <meta property="og:title" content="Santiago Exchange | Residencias para Estudiantes en Santiago">
-    <meta property="og:description" content="Encuentra tu alojamiento ideal en Santiago. Residencias exclusivas para estudiantes de intercambio cerca de las mejores universidades de Chile.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://santiagoexchange.com/">
-    <!-- <meta property="og:image" content="https://santiagoexchange.com/assets/images/og-image.jpg"> -->
-
-    <!-- Fonts: Inter for clean UI, Space Grotesk for premium headings -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/animations.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#0B1220',
+                            gradStart: '#0F1B2D',
+                            gradEnd: '#142742',
+                            turquoise: '#16A7C8',
+                            purple: '#5B5CF6',
+                            purpleHover: '#6C6DF9',
+                            textMain: '#F1F5F9',
+                            textSec: '#9AA6B2',
+                            border: '#1E2C45',
+                            sand: '#F5F3EF',
+                            navyLight: '#1E3A5F'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['"Space Grotesk"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'glow': '0 0 20px rgba(91, 92, 246, 0.4)',
+                        'img': '0 30px 60px rgba(0,0,0,0.35)',
+                        'card': '0 10px 30px rgba(11, 28, 44, 0.5)',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 2s infinite',
+                        'float-delayed-2': 'float 6s ease-in-out 4s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #0B1220; color: #F1F5F9; scroll-behavior: smooth; }
+        .glass-pill {
+            background: rgba(11, 18, 32, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-card {
+            background: rgba(15, 27, 45, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0B1220; }
+        ::-webkit-scrollbar-thumb { background: #1E2C45; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #16A7C8; }
+    </style>
 </head>
 <body>
-    
-    <!-- Navigation -->
-    <header class="navbar" id="navbar">
-        <div class="container navbar-container">
-            <a href="/" class="brand">
-                <img src="assets/images/logo.jpeg" alt="Santiago Exchange Logo" class="brand-logo">
-                <span class="logo-text">Santiago <strong>Exchange</strong></span>
-            </a>
-            
-            <nav class="nav-links">
-                <a href="#residencias">Residencias</a>
-                <a href="#comunidad">Comunidad</a>
-                <a href="#experiencia">Experiencia</a>
-                <a href="#descubre-chile">Descubre Chile</a>
-            </nav>
-            
-            <div class="nav-actions">
-                <a href="#" class="lang-switch">EN</a>
-                <a href="#reserva" class="btn btn-primary">Reservar</a>
-            </div>
-            
-            <button class="menu-toggle" aria-label="Abrir menú">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </header>
+    <div id="root"></div>
 
-    <main>
-        <!-- 1. Hero Section -->
-        <section class="hero" id="inicio">
-            <div class="hero-bg" style="background-image: url('assets/images/santiago.png');"></div>
-            <div class="hero-overlay"></div>
-            
-            <div class="container hero-layout">
-                <div class="hero-content">
-                    <h1 class="fade-in-up">Vive tu experiencia de intercambio en Santiago</h1>
-                    <p class="hero-subtitle fade-in-up delay-1">Residencias para estudiantes internacionales cerca de las principales universidades. Vive Santiago, conoce personas de todo el mundo y explora Chile.</p>
-                    
-                    <div class="hero-cta fade-in-up delay-2">
-                        <a href="#reserva" class="btn btn-primary btn-large">Reservar habitación</a>
-                        <a href="#residencias" class="btn btn-glass btn-large">Explorar residencias</a>
-                    </div>
-                </div>
-                
-                <div class="hero-badges fade-in-up delay-3">
-                    <div class="floating-badge badge-1">
-                        <span class="icon">✨</span> Residencias completamente equipadas
-                    </div>
-                    <div class="floating-badge badge-2">
-                        <span class="icon">📍</span> Cerca de universidades
-                    </div>
-                    <div class="floating-badge badge-3">
-                        <span class="icon">💻</span> Reserva online antes de llegar
-                    </div>
-                </div>
-            </div>
-        </section>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
 
-        <!-- 2. Trust Section (Confianza) -->
-        <section class="trust section reveal" id="comunidad">
-            <div class="container">
-                <div class="section-header text-center">
-                    <h2>Una comunidad internacional de estudiantes en Santiago</h2>
-                    <p class="section-desc">Santiago Exchange ofrece residencias diseñadas especialmente para estudiantes internacionales que vienen a estudiar a Chile. Nuestras residencias están ubicadas en barrios estratégicos de Santiago, cerca de universidades, estaciones de metro y los principales puntos de la ciudad.</p>
-                </div>
-                
-                <div class="benefits-grid">
-                    <div class="benefit-card">
-                        <div class="benefit-icon">📍</div>
-                        <h3>Ubicaciones estratégicas</h3>
-                        <p>A pasos de las principales universidades y transporte público.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <div class="benefit-icon">🌍</div>
-                        <h3>Comunidad Global</h3>
-                        <p>Comparte con estudiantes de Europa, EE. UU. y toda Latinoamérica.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <div class="benefit-icon">🛡️</div>
-                        <h3>Seguridad y Comodidad</h3>
-                        <p>Residencias seguras, con espacios comunes y habitaciones equipadas.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <div class="benefit-icon">💻</div>
-                        <h3>Reserva Online</h3>
-                        <p>Asegura tu estadía desde tu país de origen antes de viajar.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        // 1. Navbar
+        const Navbar = () => {
+            const [isScrolled, setIsScrolled] = useState(false);
 
-        <!-- 3. Residences Section -->
-        <section class="residences section bg-sand-gradient reveal" id="residencias">
-            <div class="container">
-                <div class="section-header flex-between">
-                    <div>
-                        <h2>Residencias top en Santiago</h2>
-                        <p class="section-desc">Descubre nuestras residencias en los mejores barrios. Diseñadas para tu comodidad, estudio y entretención.</p>
-                    </div>
-                </div>
-                
-                <div class="residences-grid">
-                    <!-- Cards will be styled here later -->
-                    <div class="residence-card glass">
-                        <div class="card-img" style="background-image: url('assets/images/Edificio Metro Salvador/1582732408.jpg');"></div>
-                        <div class="card-content">
-                            <span class="location-badge">Providencia</span>
-                            <h3>Residencia Lyon Central</h3>
-                            <p class="metro">🚇 Metro Los Leones</p>
-                            <p class="univ">🎓 Cerca de: U. Católica, U. San Sebastián</p>
-                            <a href="#" class="btn btn-outline btn-block mt-4">Ver residencia</a>
-                        </div>
-                        <div class="price-tag">Desde $350 USD/mes</div>
-                    </div>
-                    
-                    <div class="residence-card glass">
-                        <div class="card-img" style="background-image: url('assets/images/Edificio Baquedano/1738696072.jpeg');"></div>
-                        <div class="card-content">
-                            <span class="location-badge">Santiago Centro</span>
-                            <h3>Residencia Bellas Artes</h3>
-                            <p class="metro">🚇 Metro Bellas Artes</p>
-                            <p class="univ">🎓 Cerca de: U. de Chile, UDP</p>
-                            <a href="#" class="btn btn-outline btn-block mt-4">Ver residencia</a>
-                        </div>
-                        <div class="price-tag">Desde $300 USD/mes</div>
-                    </div>
+            useEffect(() => {
+                const handleScroll = () => setIsScrolled(window.scrollY > 20);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
 
-                    <div class="residence-card glass">
-                        <div class="card-img" style="background-image: url('assets/images/Edificio Metro Salvador 2/1739299769.jpeg');"></div>
-                        <div class="card-content">
-                            <span class="location-badge">Las Condes</span>
-                            <h3>Residencia Escuela Militar</h3>
-                            <p class="metro">🚇 Metro Escuela Militar</p>
-                            <p class="univ">🎓 Cerca de: U. de los Andes, UDD</p>
-                            <a href="#" class="btn btn-outline btn-block mt-4">Ver residencia</a>
-                        </div>
-                        <div class="price-tag">Desde $400 USD/mes</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. Universities Section -->
-        <section class="universities section reveal" id="universidades">
-            <div class="container text-center">
-                <h2>Cerca de las principales universidades de Santiago</h2>
-                <div class="uni-links-grid mt-5">
-                    <a href="/residencias/universidad-catolica" class="uni-link">
-                        <span class="uni-name">Universidad Católica</span>
-                        <span class="arrow">→</span>
-                    </a>
-                    <a href="/residencias/universidad-de-chile" class="uni-link">
-                        <span class="uni-name">Universidad de Chile</span>
-                        <span class="arrow">→</span>
-                    </a>
-                    <a href="/residencias/universidad-diego-portales" class="uni-link">
-                        <span class="uni-name">Universidad Diego Portales</span>
-                        <span class="arrow">→</span>
-                    </a>
-                    <a href="/residencias/universidad-andres-bello" class="uni-link">
-                        <span class="uni-name">Universidad Andrés Bello</span>
-                        <span class="arrow">→</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. Experience Section -->
-        <section class="experience section reveal pb-16" id="experiencia" style="padding-bottom: var(--space-16);">
-            <div class="container">
-                <div class="experience-layout">
-                    <div class="experience-text">
-                        <h2>Más que una residencia. Una experiencia internacional.</h2>
-                        <p class="section-desc">Vivir en Santiago Exchange significa formar parte de una comunidad global de estudiantes. Durante tu estadía podrás conocer personas de distintos países, explorar la ciudad y vivir una experiencia única en Chile.</p>
-                        
-                        <ul class="experience-list mt-4">
-                            <li><strong>Comunidad internacional:</strong> Conecta con estudiantes de todo el mundo.</li>
-                            <li><strong>Experiencias sociales:</strong> Asados, eventos, e intercambio cultural.</li>
-                            <li><strong>Explorar Santiago:</strong> Descubre la vibrante ciudad desde una ubicación premium.</li>
-                            <li><strong>Viajes por Chile:</strong> Arma tu grupo y vive el fin del mundo.</li>
-                        </ul>
-                    </div>
-                    <div class="experience-gallery">
-                        <div class="gallery-item img-large" style="background: url('assets/images/experiencias.png') center/cover; color: transparent;">Experiencias</div>
-                        <div class="gallery-item img-small-1" style="background: url('assets/images/comunidad.png') center/cover; color: transparent;">Comunidad</div>
-                        <div class="gallery-item img-small-2" style="background: url('assets/images/santiago.png') center/cover; color: transparent;">Santiago</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 6. Chile Section -->
-        <section class="chile section bg-gradient reveal" id="descubre-chile">
-            <div class="container">
-                <div class="section-header text-center text-white">
-                    <h2 class="text-white">Descubre Chile en tu intercambio</h2>
-                    <p class="section-desc text-white-70" style="margin-left: auto; margin-right: auto;">Estudiar en Santiago te permite explorar uno de los países más diversos del mundo. Desde el desierto hasta la Patagonia.</p>
-                </div>
-                
-                <div class="destinations-carousel mt-5">
-                    <div class="destination-card">
-                        <div class="dest-bg patagonia" style="background-image: url('assets/images/patagonia.png');"></div>
-                        <div class="dest-content">
-                            <h3>Patagonia</h3>
-                        </div>
-                    </div>
-                    <div class="destination-card">
-                        <div class="dest-bg atacama" style="background-image: url('assets/images/atacama.png');"></div>
-                        <div class="dest-content">
-                            <h3>Desierto de Atacama</h3>
-                        </div>
-                    </div>
-                    <div class="destination-card">
-                        <div class="dest-bg valparaiso" style="background-image: url('assets/images/valparaiso.png');"></div>
-                        <div class="dest-content">
-                            <h3>Valparaíso</h3>
-                        </div>
-                    </div>
-                    <div class="destination-card">
-                        <div class="dest-bg santiago" style="background-image: url('assets/images/santiago.png');"></div>
-                        <div class="dest-content">
-                            <h3>Santiago</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 7. Process Section -->
-        <section class="process section reveal" id="reserva">
-            <div class="container text-center">
-                <h2>Reserva tu residencia en 4 pasos</h2>
-                
-                <div class="steps-container mt-5">
-                    <div class="step">
-                        <div class="step-num glass">🔍</div>
-                        <h3>Explora</h3>
-                        <p>Revisa nuestras residencias y elige tu barrio ideal.</p>
-                    </div>
-                    <div class="step-line"></div>
-                    <div class="step">
-                        <div class="step-num glass">📅</div>
-                        <h3>Disponibilidad</h3>
-                        <p>Verifica las fechas de tu semestre o programa.</p>
-                    </div>
-                    <div class="step-line"></div>
-                    <div class="step">
-                        <div class="step-num glass">💻</div>
-                        <h3>Reserva online</h3>
-                        <p>Asegura tu habitación online de forma segura.</p>
-                    </div>
-                    <div class="step-line"></div>
-                    <div class="step">
-                        <div class="step-num glass">🛬</div>
-                        <h3>Llega listo</h3>
-                        <p>Aterriza en Santiago con tu alojamiento 100% garantizado.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 8. SEO Article Section (Hidden visually but important for semantics & keywords) -->
-        <article class="seo-article section bg-light" id="sobre-nosotros">
-            <div class="container seo-container">
-                <h2>Residencias para estudiantes internacionales en Santiago</h2>
-                <div class="seo-content">
-                    <p>Santiago Exchange ofrece <strong>residencias para estudiantes en Santiago</strong> especialmente diseñadas para estudiantes internacionales y programas de intercambio. Nuestras residencias están ubicadas cerca de las principales universidades de la ciudad, incluyendo la Universidad Católica, Universidad de Chile, Universidad Diego Portales y Universidad Andrés Bello.</p>
-                    
-                    <p>Cada residencia cuenta con habitaciones completamente equipadas, espacios comunes y acceso cercano a transporte público, lo que permite a los estudiantes vivir cómodamente mientras estudian y exploran Santiago.</p>
-                    
-                    <p>Los estudiantes pueden reservar su <strong>student housing</strong> online antes de llegar a Chile y formar parte de una comunidad internacional que vive y comparte la experiencia de estudiar en Santiago.</p>
-                </div>
-            </div>
-        </article>
-
-        <!-- 9. Pre-Footer CTA -->
-        <section class="cta-section section text-white" id="contacto" style="background: url('assets/images/atacama.png') center/cover; position: relative;">
-            <div style="position: absolute; inset: 0; background: linear-gradient(to top, var(--navy) 0%, rgba(11,28,44,0.4) 100%);"></div>
-            <div class="container" style="position: relative; z-index: 2; padding: var(--space-12) 0;">
-                <div class="cta-box glass-card text-center" style="max-width: 800px; margin: 0 auto; background: rgba(11,28,44,0.6); border-color: rgba(255,255,255,0.1);">
-                    <h2 class="text-white">¿Listo para vivir tu intercambio en Santiago?</h2>
-                    <p class="text-white-70 mt-4" style="font-size: 1.25rem;">Reserva tu habitación antes de llegar a Chile y comienza tu experiencia internacional con Santiago Exchange.</p>
-                    <div class="cta-buttons mt-5" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                        <a href="#reserva" class="btn btn-primary btn-large">Reservar habitación</a>
-                        <a href="https://wa.me/56900000000" target="_blank" class="btn btn-whatsapp btn-large">
-                            <span class="icon">💬</span> Hablar por WhatsApp
+            return (
+                <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-brand-navy/90 backdrop-blur-md border-b border-brand-border py-4' : 'bg-transparent py-6'}`}>
+                    <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+                        {/* Logo Left - New Structure */}
+                        <a href="#" className="flex items-center gap-4 cursor-pointer">
+                            <img src="assets/images/logo-square-new.png" alt="Santiago Exchange Icon" className="h-16 w-16 object-contain" />
+                            <img src="assets/images/logo-white-text.png" alt="Santiago Exchange Text" className="h-[67px] w-auto object-contain" />
                         </a>
+
+                        <div className="hidden lg:flex items-center gap-8">
+                            {['Residencias', 'Comunidad', 'Experiencias', 'Guía de Chile'].map((link) => (
+                                <a key={link} href={`#${link.toLowerCase().replace(/ /g, '-')}`} className="text-sm font-medium text-brand-textMain hover:text-brand-turquoise transition-colors">
+                                    {link}
+                                </a>
+                            ))}
+                        </div>
+
+                        <div className="flex items-center gap-6">
+                            <a href="#login" className="hidden sm:block text-sm font-medium text-brand-textMain hover:text-brand-turquoise transition-colors">Log in</a>
+                            <a href="#reserva" className="bg-brand-turquoise hover:bg-[#128a9e] text-white text-sm font-semibold py-2.5 px-6 rounded-full transition-all shadow-[0_4px_14px_0_rgba(22,167,200,0.39)] hover:-translate-y-0.5">Reservar</a>
+                        </div>
+                    </div>
+                </nav>
+            );
+        };
+
+        // 2. Hero Section
+        const Hero = () => {
+            return (
+                <section className="relative min-h-screen bg-gradient-to-br from-brand-gradStart to-brand-gradEnd overflow-hidden flex items-center pt-24 pb-16">
+                    <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMxRTLDNDUiIGZpbGwtb3BhY2l0eT0iMC4yIj48cGF0aCBkPSJNMzYgMzR2LTRoLTJ2NGgtNHYyaDR2NGgyeXYtNGg0di0yaC00em0wLTMwVjMwSDMwVjBIMjB2MzBIMHYxMGgyMHYyMGgxMFYzMGgyMHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-[0.03]"></div>
+                    
+                    <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center relative z-10">
+                        <div className="flex flex-col items-start gap-6 max-w-xl">
+                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-purple/50 bg-brand-purple/10 text-brand-purple shadow-glow">
+                                <span className="text-sm">✨</span>
+                                <span className="text-sm font-medium text-brand-textMain">Únete a los más de 5.000 estudiantes que ya se han alojado con nosotros</span>
+                            </div>
+
+                            <h1 className="font-display text-5xl md:text-6xl lg:text-[4rem] font-bold leading-tight tracking-tight text-[#F1F5F9]">
+                                Vive tu <br />
+                                experiencia de <br />
+                                <span className="bg-gradient-to-r from-[#16A7C8] to-[#5B5CF6] text-transparent bg-clip-text">intercambio</span> en <br />
+                                Santiago.
+                            </h1>
+
+                            <p className="text-lg text-brand-textSec leading-relaxed">
+                                Residencias para estudiantes internacionales completamente equipadas y ubicadas cerca de las principales universidades de Santiago.
+                            </p>
+
+                            <div className="flex flex-col sm:flex-row items-center gap-4 mt-4 w-full sm:w-auto">
+                                <a href="#residencias" className="w-full sm:w-auto text-center bg-brand-turquoise hover:bg-[#128a9e] text-white font-medium py-3.5 px-8 rounded-full transition-all shadow-[0_4px_14px_0_rgba(22,167,200,0.39)] hover:-translate-y-0.5">Explorar residencias</a>
+                                <a href="#reserva" className="w-full sm:w-auto text-center bg-transparent border border-brand-border hover:bg-brand-border/50 text-white font-medium py-3.5 px-8 rounded-full transition-all">Reservar habitación</a>
+                            </div>
+                        </div>
+
+                        <div className="relative w-full aspect-square md:aspect-[4/3] lg:aspect-square flex items-center justify-center">
+                            
+                            {/* Main Image Container */}
+                            <div className="relative w-[125%] md:w-[135%] lg:w-[145%] xl:w-[165%] animate-float origin-center z-10 transition-transform">
+                                <img src="assets/images/hero-1.png" alt="Estudiante Internacional con mochila" className="w-full h-auto object-contain drop-shadow-2xl" />
+                            </div>
+
+                            {/* Burbuja 1 (Booking) - Movido más abajo */}
+                            <div className="absolute top-[40%] left-1/2 -translate-x-1/2 md:translate-x-0 md:-left-[10%] md:top-[50%] lg:-left-[15%] bg-brand-navy/60 backdrop-blur-md border border-white/10 px-5 py-3 rounded-2xl flex items-center gap-3 animate-float-delayed shadow-xl z-20">
+                                <div className="w-10 h-10 rounded-full bg-brand-turquoise/20 flex items-center justify-center text-xl">📅</div>
+                                <div>
+                                    <p className="text-xs text-brand-textSec font-semibold uppercase tracking-wider">BOOKING</p>
+                                    <p className="text-sm font-semibold text-white">Reserva Inmediata</p>
+                                </div>
+                            </div>
+
+                            {/* Burbuja 2 */}
+                            <div className="absolute bottom-[20%] -right-[5%] md:right-[0%] lg:-right-[10%] bg-brand-navy/60 backdrop-blur-md border border-white/10 px-5 py-3 rounded-2xl flex items-center gap-3 animate-float shadow-xl z-20">
+                                <div className="w-10 h-10 rounded-full bg-brand-purple/20 flex items-center justify-center text-xl">🌍</div>
+                                <div>
+                                    <p className="text-xs text-brand-textSec font-semibold uppercase tracking-wider">VIBE</p>
+                                    <p className="text-sm font-semibold text-white">Comunidad Global</p>
+                                </div>
+                            </div>
+
+                            {/* Burbuja 3 (Llegada) - Movido un poco más arriba para tocar la silueta */}
+                            <div className="absolute -bottom-[5%] left-[5%] md:left-[10%] md:bottom-[5%] lg:-left-[5%] bg-brand-navy/60 backdrop-blur-md border border-white/10 px-5 py-3 rounded-2xl flex items-center gap-3 animate-float-delayed-2 shadow-xl z-20">
+                                <div className="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center text-xl">📍</div>
+                                <div>
+                                    <p className="text-xs text-brand-textSec font-semibold uppercase tracking-wider">LLEGADA</p>
+                                    <p className="text-sm font-semibold text-white">Todo listo en tu habitación</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // 2.5 Attributes Section - Bento Box Style
+        const AttributesSection = () => {
+            return (
+                <section className="py-24 bg-[#0B1220]">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <div className="text-center mb-16 max-w-4xl mx-auto flex flex-col items-center">
+                            <span className="bg-[#111C2F] text-[#9AA6B2] text-xs font-bold px-4 py-2 rounded-full border border-[#1E2C45] uppercase tracking-wider mb-6 inline-block shadow-sm">
+                                Tu experiencia, sin complicaciones
+                            </span>
+                            <h2 className="text-4xl md:text-5xl font-bold font-['Space_Grotesk'] text-[#F1F5F9] leading-tight mb-4">
+                                Todo lo que necesitas,<br />en un solo lugar.
+                            </h2>
+                            <p className="text-[#9AA6B2] text-lg font-['Inter']">Diseñamos espacios pensando en la eficiencia, tu estudio y la experiencia de vivir en Santiago.</p>
+                        </div>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 md:gap-6 auto-rows-[340px] md:auto-rows-[auto]">
+                            
+                            {/* Card 1: Habitaciones Equipadas (Large) */}
+                            <div className="md:col-span-2 md:row-span-1 rounded-3xl border border-[#1E2C45] overflow-hidden group relative flex flex-col justify-end min-h-[340px] transition-all duration-500 hover:-translate-y-1 hover:border-[#5B5CF6]/50 shadow-2xl shadow-black/40">
+                                <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=800&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Habitación equipada" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1220] via-[#0B1220]/60 to-transparent"></div>
+                                <div className="relative p-8 z-10 w-full md:max-w-md">
+                                    <h4 className="font-['Space_Grotesk'] font-bold text-2xl text-[#F1F5F9] mb-3">Habitaciones Equipadas</h4>
+                                    <p className="font-['Inter'] text-[#9AA6B2] text-base leading-relaxed">Cama, escritorio, clóset y ropa de cama incluida. Solo necesitas traer tu maleta.</p>
+                                </div>
+                            </div>
+
+                            {/* Card 2: Gastos Incluidos */}
+                            <div className="md:col-span-1 md:row-span-1 rounded-3xl bg-[#111C2F] border border-[#1E2C45] overflow-hidden group flex flex-col justify-between p-8 min-h-[320px] md:min-h-auto transition-all duration-500 hover:-translate-y-1 hover:border-[#5B5CF6]/50 shadow-2xl shadow-black/40">
+                                <div className="w-14 h-14 rounded-full bg-[#16A7C8]/10 flex items-center justify-center mb-6">
+                                    <svg className="w-7 h-7 text-[#16A7C8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 className="font-['Space_Grotesk'] font-bold text-xl text-[#F1F5F9] mb-3">Gastos Incluidos</h4>
+                                    <p className="font-['Inter'] text-[#9AA6B2] text-sm leading-relaxed">Luz, agua, gas e internet de alta velocidad en una sola tarifa unificada.</p>
+                                </div>
+                            </div>
+
+                            {/* Card 3: Barrios Seguros */}
+                            <div className="md:col-span-1 md:row-span-1 rounded-3xl bg-[#111C2F] border border-[#1E2C45] overflow-hidden group flex flex-col justify-between p-8 min-h-[320px] md:min-h-auto transition-all duration-500 hover:-translate-y-1 hover:border-[#5B5CF6]/50 shadow-2xl shadow-black/40">
+                                <div className="w-14 h-14 rounded-full bg-[#16A7C8]/10 flex items-center justify-center mb-6">
+                                    <svg className="w-7 h-7 text-[#16A7C8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 className="font-['Space_Grotesk'] font-bold text-xl text-[#F1F5F9] mb-3">Barrios Seguros</h4>
+                                    <p className="font-['Inter'] text-[#9AA6B2] text-sm leading-relaxed">Viviendas validadas en las mejores y más seguras zonas céntricas de Santiago de Chile.</p>
+                                </div>
+                            </div>
+
+                            {/* Card 4: 15+ Años de Liderazgo (Typography Heavy) */}
+                            <div className="md:col-span-1 md:row-span-1 rounded-3xl bg-[#111C2F] border border-[#1E2C45] overflow-hidden relative group flex flex-col justify-between p-8 min-h-[320px] md:min-h-auto transition-all duration-500 hover:-translate-y-1 hover:border-[#5B5CF6]/50 shadow-2xl shadow-black/40">
+                                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#5B5CF6]/15 to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
+                                <div className="relative z-10 mb-6 mt-2">
+                                    <span className="text-6xl font-black font-['Space_Grotesk'] tracking-tighter bg-gradient-to-r from-[#16A7C8] to-[#5B5CF6] bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-500 inline-block origin-left">
+                                        15+
+                                    </span>
+                                </div>
+                                <div className="relative z-10">
+                                    <h4 className="font-['Space_Grotesk'] font-bold text-xl text-[#F1F5F9] mb-3">Años de Liderazgo</h4>
+                                    <p className="font-['Inter'] text-[#9AA6B2] text-sm leading-relaxed">Confiabilidad absoluta liderando el alojamiento para estudiantes internacionales desde 2008.</p>
+                                </div>
+                            </div>
+
+                            {/* Card 5: Contratos Simples */}
+                            <div className="md:col-span-1 md:row-span-1 rounded-3xl bg-[#111C2F] border border-[#1E2C45] overflow-hidden group flex flex-col justify-between p-8 min-h-[320px] md:min-h-auto transition-all duration-500 hover:-translate-y-1 hover:border-[#5B5CF6]/50 shadow-2xl shadow-black/40">
+                                <div className="w-14 h-14 rounded-full bg-[#16A7C8]/10 flex items-center justify-center mb-6">
+                                    <svg className="w-7 h-7 text-[#16A7C8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 className="font-['Space_Grotesk'] font-bold text-xl text-[#F1F5F9] mb-3">Contratos Simples</h4>
+                                    <p className="font-['Inter'] text-[#9AA6B2] text-sm leading-relaxed">Reserva online, firma transparente y acuerdo 100% digital desde tu celular.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // 3. Trust & Benefits Section
+        const TrustSection = () => {
+
+            return (
+                <section className="py-20 bg-brand-navy border-t border-brand-border">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <p className="text-sm font-semibold tracking-widest text-[#9AA6B2] mb-8 text-center uppercase">Estudiantes de estas universidades ya viven con nosotros</p>
+                        <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16 max-w-6xl mx-auto mb-20 pb-4">
+                            {[
+                                "assets/images/logos-universidades/Logo_UChile_gris_sf.png.png",
+                                "assets/images/logos-universidades/uc-chile.png",
+                                "assets/images/logos-universidades/UDD.png",
+                                "assets/images/logos-universidades/UDP_LogoRGB_2lineas_Pluma.png",
+                                "assets/images/logos-universidades/logo-uai.png",
+                                "assets/images/logos-universidades/logo-universidad-de-los-andes-chile.png",
+                                "assets/images/logos-universidades/logos-usansebastian.png",
+                                "assets/images/logos-universidades/banner_1683220328750.png",
+                                "assets/images/logos-universidades/Logo-Duoc-UC.png",
+                                "assets/images/logos-universidades/Logo_sitio_principal.png",
+                                "assets/images/logos-universidades/logo-finis-terrae-vertical.png",
+                                "assets/images/logos-universidades/d5c9a7091b6cae60b5c3a5a710d1f655985a8f07.png"
+                            ].map((logo, index) => (
+                                <img 
+                                    key={index}
+                                    src={logo} 
+                                    alt="Logo Universidad" 
+                                    className="h-10 md:h-12 w-auto object-contain grayscale brightness-0 invert opacity-50 hover:opacity-100 transition-opacity duration-300"
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // 4. Residences Section
+        const ResidencesSection = () => {
+            const scrollRef = React.useRef(null);
+            const [isHovered, setIsHovered] = React.useState(false);
+            
+            const handleScroll = (direction) => {
+                if (scrollRef.current) {
+                    const scrollAmount = window.innerWidth >= 768 ? 424 : window.innerWidth * 0.85; 
+                    if (direction === 'left') {
+                        scrollRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                    } else {
+                        scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                    }
+                }
+            };
+
+            React.useEffect(() => {
+                if (isHovered) return;
+                
+                const interval = setInterval(() => {
+                    if (scrollRef.current) {
+                        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+                        
+                        // Check if it reached the end (with a small 10px buffer)
+                        if (scrollLeft + clientWidth >= scrollWidth - 10) {
+                            // Reset to start
+                            scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+                        } else {
+                            // Scroll right autonomously
+                            const scrollAmount = window.innerWidth >= 768 ? 424 : window.innerWidth * 0.85; 
+                            scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                        }
+                    }
+                }, 4000); // Wait 4 seconds per slide
+                
+                return () => clearInterval(interval);
+            }, [isHovered]);
+
+            const residences = [
+                {
+                    id: 1,
+                    name: "Salvador I",
+                    location: "Providencia · Metro Salvador",
+                    near: "Cerca de: Universidad Católica, U de Chile",
+                    img: "assets/images/residencia-salvador-1.jpg",
+                    tag: "Top Rated"
+                },
+                {
+                    id: 2,
+                    name: "Salvador II",
+                    location: "Providencia · Metro Salvador",
+                    near: "Cerca de: Universidad Católica, Barrio Italia",
+                    img: "assets/images/residencia-salvador-2.jpg",
+                    tag: "Nuevo"
+                },
+                {
+                    id: 3,
+                    name: "Baquedano",
+                    location: "Providencia · Metro Baquedano",
+                    near: "Cerca de: UNAB, U de Chile, UDP",
+                    img: "assets/images/residencia-baquedano.jpg",
+                    tag: "Muy Céntrico"
+                },
+                {
+                    id: 4,
+                    name: "Providencia I",
+                    location: "Providencia · Metro Inés de Suárez",
+                    near: "Cerca de: Universidad San Sebastián, Duoc UC",
+                    img: "assets/images/residencia-providencia-1.png",
+                    tag: "Premium"
+                },
+                {
+                    id: 5,
+                    name: "Providencia II",
+                    location: "Providencia · Metro Pedro de Valdivia",
+                    near: "Cerca de: Costanera Center, U. Finis Terrae",
+                    img: "assets/images/residencia-providencia-2.png",
+                    tag: "Exclusiva"
+                },
+                {
+                    id: 6,
+                    name: "Las Condes I",
+                    location: "Las Condes · Metro Escuela Militar",
+                    near: "Cerca de: U. de los Andes, UDD",
+                    img: "assets/images/residencia-las-condes-1.png",
+                    tag: "Exclusiva"
+                }
+            ];
+
+            const benefits = [
+                { icon: "🎓", title: "Cerca de universidades", desc: "Ubicaciones estratégicas a pasos del metro." },
+                { icon: "🌐", title: "Comunidad internacional", desc: "Conoce estudiantes de todo el mundo." },
+                { icon: "🛡️", title: "Seguro y equipado", desc: "Internet alta velocidad y asistencia 24/7." },
+                { icon: "📅", title: "Reserva flexible", desc: "Arriendos por el semestre académico." }
+            ];
+
+            return (
+                <section id="residencias" className="py-24 bg-brand-navyLight overflow-hidden">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <div className="flex flex-col md:flex-row justify-between items-end md:items-center mb-12 gap-8">
+                            <div className="max-w-2xl">
+                                <h2 className="text-5xl md:text-6xl font-bold font-['Space_Grotesk'] text-[#F1F5F9] leading-tight mb-6">
+                                    Nuestras <br />
+                                    <span className="italic bg-gradient-to-r from-[#7B61FF] to-[#C4B5FD] bg-clip-text text-transparent relative inline-block pb-1">
+                                        Residencias.
+                                        <span className="absolute bottom-0 left-0 w-full h-1.5 bg-[#16A7C8]"></span>
+                                    </span>
+                                </h2>
+                                <p className="text-brand-textSec text-lg">Descubre nuestras residencias en los mejores barrios. Diseñadas para tu comodidad, estudio y entretención en un entorno seguro.</p>
+                            </div>
+                            
+                            {/* Navigation Buttons */}
+                            <div className="flex items-center gap-4 self-end md:self-auto">
+                                <button onClick={() => handleScroll('left')} className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white transition-colors duration-300 hover:bg-[#16A7C8] hover:border-[#16A7C8] hover:text-white shadow-lg">
+                                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+                                </button>
+                                <button onClick={() => handleScroll('right')} className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white transition-colors duration-300 hover:bg-[#16A7C8] hover:border-[#16A7C8] hover:text-white shadow-lg">
+                                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Carousel Container */}
+                        <div 
+                            ref={scrollRef} 
+                            onMouseEnter={() => setIsHovered(true)}
+                            onMouseLeave={() => setIsHovered(false)}
+                            className="flex overflow-x-auto gap-6 snap-x snap-mandatory pb-8 [&::-webkit-scrollbar]:hidden scroll-smooth"
+                        >
+                            {residences.map(res => (
+                                <div key={res.id} className="snap-start flex-shrink-0 w-[85vw] md:w-[400px] h-full group relative bg-[#111C2F] rounded-3xl overflow-hidden border border-transparent hover:border-[#1E2C45] transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#5B5CF6]/20 flex flex-col">
+                                    <div className="relative aspect-[4/3] overflow-hidden">
+                                        <div className="absolute top-4 left-4 z-10 bg-[#16A7C8] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
+                                            {res.tag}
+                                        </div>
+                                        <img src={res.img} alt={res.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-brand-navy to-transparent opacity-80"></div>
+                                    </div>
+                                    <div className="p-6 relative -mt-12 z-10 flex flex-col flex-grow">
+                                        <h3 className="font-display text-2xl font-bold text-white mb-2">{res.name}</h3>
+                                        <p className="text-brand-turquoise text-sm font-medium mb-3 flex items-center gap-2">
+                                            <span>📍</span> {res.location}
+                                        </p>
+                                        <p className="text-brand-textSec text-sm mb-6 flex items-start gap-2 h-10">
+                                            <span>🎓</span> {res.near}
+                                        </p>
+                                        <button className="w-full mt-auto py-3 rounded-lg border border-[#2A3F5F] bg-transparent text-white font-medium transition-all duration-300 hover:border-[#5B5CF6] hover:bg-[#5B5CF6]/10 hover:text-[#C4B5FD]">
+                                            Explorar Residencia
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Benefits Cards Moved Here */}
+                        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {benefits.map((b, i) => (
+                                <div key={i} className="glass-card p-6 rounded-2xl hover:-translate-y-1 transition-transform border border-brand-border bg-brand-navy">
+                                    <div className="w-12 h-12 rounded-full bg-brand-turquoise/10 flex items-center justify-center text-2xl mb-4">{b.icon}</div>
+                                    <h4 className="font-display font-semibold text-lg text-white mb-2">{b.title}</h4>
+                                    <p className="text-brand-textSec text-sm">{b.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // 5. Experience Section
+        const ExperienceSection = () => {
+            const { motion, useScroll, useTransform } = window.Motion || {};
+            const containerRef = React.useRef(null);
+            
+            // Safe fallback if Framer is somehow missing
+            const scrollYProgress = useScroll ? useScroll({
+                target: containerRef,
+                offset: ["start end", "end start"]
+            }).scrollYProgress : { get: () => 0 };
+
+            const [isSmallScreen, setIsSmallScreen] = React.useState(false);
+            React.useEffect(() => {
+                const checkScreen = () => setIsSmallScreen(window.innerWidth < 1024);
+                checkScreen();
+                window.addEventListener('resize', checkScreen);
+                return () => window.removeEventListener('resize', checkScreen);
+            }, []);
+
+            const y1 = useTransform ? useTransform(scrollYProgress, [0, 1], isSmallScreen ? [0, 0] : [80, -80]) : 0;
+            const y2 = useTransform ? useTransform(scrollYProgress, [0, 1], isSmallScreen ? [0, 0] : [-80, 80]) : 0;
+
+            const MotionDiv = motion?.div || 'div';
+
+            return (
+                <section id="comunidad" className="py-24 bg-[#0B1220] overflow-hidden" ref={containerRef}>
+                    <div className="max-w-7xl mx-auto px-6">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                            
+                            {/* Text Area */}
+                            <div>
+                                <h2 className="text-5xl md:text-6xl font-bold font-['Space_Grotesk'] text-[#F1F5F9] mb-6 leading-tight">
+                                    Not just a place to sleep.<br/>
+                                    <span className="italic bg-clip-text text-transparent bg-gradient-to-r from-[#16A7C8] to-[#5B5CF6]">A life to live.</span>
+                                </h2>
+                                <p className="font-['Inter'] text-[#9AA6B2] text-lg mb-10 leading-relaxed">
+                                    Vivir en Santiago Exchange significa formar parte de una comunidad global. Organiza viajes, disfruta de asados y conoce personas de distintos países mientras exploras Chile.
+                                </p>
+                                
+                                <ul className="space-y-5 mb-10">
+                                    {['Comunidad internacional', 'Experiencias y eventos sociales', 'Acompañamiento local', 'Viajes organizados'].map((item, i) => (
+                                        <li key={i} className="flex items-center gap-4 text-[#F1F5F9]">
+                                            <div className="w-10 h-10 rounded-full bg-[#5B5CF6]/20 border border-[#5B5CF6]/30 flex items-center justify-center text-[#5B5CF6] text-sm">✦</div>
+                                            <span className="font-medium text-lg">{item}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                                
+                                <button className="flex items-center gap-2 text-white bg-[#5B5CF6] hover:bg-[#6C6DF9] px-8 py-4 rounded-full font-medium transition-all shadow-[0_0_20px_rgba(91,92,246,0.5)] hover:-translate-y-1">
+                                    Ver Galería de Experiencias
+                                </button>
+                            </div>
+
+                            {/* Collage Area with Framer Motion Parallax */}
+                            <div className="relative h-[600px] md:h-[700px] w-full grid grid-cols-2 gap-4 md:gap-6">
+                                {/* Left Column: moves up */}
+                                <MotionDiv style={motion ? { y: y1 } : {}} className="flex flex-col gap-4 md:gap-6">
+                                    <div className="h-[55%] rounded-3xl overflow-hidden border border-[#1E2C45] shadow-2xl shadow-black/40 group">
+                                        <img src="assets/images/collage1.png" className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110" alt="Students sharing food" />
+                                    </div>
+                                    <div className="h-[45%] rounded-3xl overflow-hidden border border-[#1E2C45] shadow-2xl shadow-black/40 group">
+                                        <img src="assets/images/collage2.png" className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110" alt="Mountain trip" />
+                                    </div>
+                                </MotionDiv>
+                                
+                                {/* Right Column: moves down, has top margin */}
+                                <MotionDiv style={motion ? { y: y2 } : {}} className="flex flex-col gap-4 md:gap-6 mt-12 md:mt-20">
+                                    <div className="h-[40%] rounded-3xl overflow-hidden border border-[#1E2C45] shadow-2xl shadow-black/40 group">
+                                        <img src="assets/images/collage3.png" className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110" alt="International connection" />
+                                    </div>
+                                    <div className="h-[60%] rounded-3xl overflow-hidden border border-[#1E2C45] shadow-2xl shadow-black/40 group">
+                                        <img src="assets/images/collage4.png" className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110" alt="Community life" />
+                                    </div>
+                                </MotionDiv>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // 6. Explore Chile
+        const ExploreChile = () => {
+             const places = [
+                { name: "Concón", video: "assets/videos/video1_new.mp4", desc: "Piérdete en la inmensidad de las dunas", offsetClass: "mt-0" },
+                { name: "Pichilemu", video: "assets/videos/video2.mp4", desc: "Capital mundial del surf", offsetClass: "mt-0 lg:mt-12" },
+                { name: "Valle Nevado", video: "assets/videos/video3.mp4", desc: "La mejor nieve de latinoamerica", offsetClass: "mt-0 lg:-mt-6" },
+                { name: "Desierto de Atacama", video: "assets/videos/video4.mp4", desc: "El desierto más arido del mundo", offsetClass: "mt-0 lg:mt-8" },
+                { name: "Torres del Paine", video: "assets/videos/video5_new.mp4", desc: "La 8va maravilla del mundo", offsetClass: "mt-0 lg:mt-16" },
+                { name: "Día de Rafting", video: "assets/videos/video6_new.mp4", desc: "Cajon Del Maipo", offsetClass: "mt-0 lg:-mt-2" }
+            ];
+
+            return (
+                <section id="guía-de-chile" className="py-24 bg-[#0B1220]">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <div className="text-center max-w-2xl mx-auto mb-16">
+                            <h2 className="font-display text-4xl md:text-5xl font-bold text-white mb-6">
+                                Explora Chile desde <br className="hidden md:block"/>
+                                <span className="bg-gradient-to-r from-[#16A7C8] to-[#5B5CF6] text-transparent bg-clip-text">la cordillera al mar</span>
+                            </h2>
+                            <p className="font-['Inter'] text-[#9AA6B2] text-lg leading-relaxed">Vive la diversidad única de Chile. Viajes grupales y escapadas cada mes organizadas por Santiago Exchange.</p>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+                            {places.map((place, i) => (
+                                <div key={i} className={`group relative aspect-[9/16] rounded-3xl overflow-hidden shadow-lg border border-white/5 ${place.offsetClass}`}>
+                                    <video 
+                                        src={place.video} 
+                                        autoPlay 
+                                        loop 
+                                        muted 
+                                        playsInline 
+                                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                    ></video>
+                                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0B1220]/20 to-[#0B1220]/90"></div>
+                                    <div className="absolute bottom-0 left-0 p-6 w-full transform transition-transform duration-500 group-hover:-translate-y-2">
+                                        <p className="font-['Inter'] text-brand-turquoise text-sm font-medium uppercase tracking-wider mb-2">{place.desc}</p>
+                                        <h3 className="font-display text-2xl font-bold text-white">{place.name}</h3>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="flex justify-center">
+                            <button className="flex items-center gap-3 bg-gradient-to-r from-[#16A7C8] to-[#5B5CF6] hover:opacity-90 text-white font-medium py-4 px-10 rounded-full transition-all text-lg shadow-[0_10px_30px_rgba(91,92,246,0.3)] hover:-translate-y-1">
+                                Explorar Actividades <span>✈️</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // 7. Process & CTA
+        const ProcessCTA = () => {
+            return (
+                <div id="reserva">
+                    <section className="py-24 bg-brand-navy">
+                        <div className="max-w-7xl mx-auto px-6 text-center">
+                            <h2 className="font-display text-4xl font-bold text-white mb-16">Reserva tu residencia en 4 pasos</h2>
+                            
+                            <div className="flex flex-col md:flex-row justify-between relative">
+                                {/* Desktop connecting line */}
+                                <div className="hidden md:block absolute top-10 left-10 right-10 h-0.5 bg-brand-border z-0"></div>
+                                
+                                {[
+                                    { icon: "🔍", title: "Explora", desc: "Elige tu barrio ideal." },
+                                    { icon: "📅", title: "Disponibilidad", desc: "Verifica las fechas." },
+                                    { icon: "💻", title: "Reserva online", desc: "Asegura de forma segura." },
+                                    { icon: "🛬", title: "Llega listo", desc: "Aterriza 100% garantizado." }
+                                ].map((step, i) => (
+                                    <div key={i} className="relative z-10 flex flex-col items-center mb-10 md:mb-0 w-full md:w-1/4 px-4">
+                                        <div className="w-20 h-20 rounded-full glass-card flex items-center justify-center text-3xl mb-6 shadow-glow transition-transform hover:-translate-y-2 cursor-default border border-brand-turquoise/30">
+                                            {step.icon}
+                                        </div>
+                                        <h3 className="font-display text-xl font-bold text-white mb-2">{step.title}</h3>
+                                        <p className="text-brand-textSec text-sm">{step.desc}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Pre-Footer CTA */}
+                    <section className="relative py-32 bg-brand-navy overflow-hidden">
+                        <div className="absolute inset-0 bg-[url('assets/images/atacama.png')] bg-cover bg-center"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/70 to-transparent"></div>
+                        
+                        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+                            <div className="glass-card p-12 rounded-[2rem] border border-white/10 shadow-2xl backdrop-blur-xl">
+                                <h2 className="font-display text-4xl md:text-5xl font-bold text-white mb-6">¿Listo para vivir tu intercambio en Santiago?</h2>
+                                <p className="text-xl text-white/80 mb-10">Comienza tu experiencia internacional. Reserva online en minutos.</p>
+                                
+                                <div className="flex flex-col sm:flex-row justify-center gap-4">
+                                    <button className="bg-brand-turquoise hover:bg-[#128a9e] text-white font-medium py-4 px-10 rounded-full transition-all text-lg shadow-[0_4px_20px_0_rgba(22,167,200,0.5)]">
+                                        Reservar habitación
+                                    </button>
+                                    <button className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20b858] text-white font-medium py-4 px-10 rounded-full transition-all text-lg">
+                                        <span>💬</span> Hablar por WhatsApp
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            );
+        };
+
+        const Footer = () => (
+            <footer className="bg-brand-navy border-t border-brand-border py-12">
+                <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between gap-8">
+                    <div className="max-w-xs">
+                        <div className="flex items-center gap-3 mb-4">
+                            <img src="assets/images/logo-square-new.png" alt="Santiago Exchange Icon" className="h-16 w-16 object-contain" />
+                            <img src="assets/images/logo-white-text.png" alt="Santiago Exchange Text" className="h-[67px] w-auto object-contain" />
+                        </div>
+                        <p className="text-brand-textSec text-sm">Residencias premium para estudiantes internacionales en el corazón de Chile.</p>
+                    </div>
+                    <div className="flex gap-16">
+                        <div>
+                            <h4 className="text-white font-semibold mb-4">Plataforma</h4>
+                            <ul className="space-y-2 text-sm text-brand-textSec">
+                                <li><a href="#" className="hover:text-brand-turquoise">Residencias</a></li>
+                                <li><a href="#" className="hover:text-brand-turquoise">Experiencias</a></li>
+                                <li><a href="#" className="hover:text-brand-turquoise">Preguntas Frecuentes</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="text-white font-semibold mb-4">Contacto</h4>
+                            <ul className="space-y-2 text-sm text-brand-textSec">
+                                <li>hola@santiagoexchange.com</li>
+                                <li>+56 9 1234 5678</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+                <div className="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-brand-border flex flex-col md:flex-row justify-between items-center text-xs text-brand-textSec">
+                    <p>© 2026 Santiago Exchange. All rights reserved.</p>
+                    <div className="flex gap-4 mt-4 md:mt-0">
+                        <a href="#" className="hover:text-white">Términos</a>
+                        <a href="#" className="hover:text-white">Privacidad</a>
+                    </div>
+                </div>
+            </footer>
+        );
 
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container footer-grid">
-            <div class="footer-brand">
-                <span class="logo-text">Santiago <strong>Exchange</strong></span>
-                <p>Residencias exclusivas para estudiantes de intercambio en Chile.</p>
-            </div>
+        const TestimonialSection = () => {
+            const { scrollYProgress } = window.Motion.useScroll();
+            const yPos = window.Motion.useTransform(scrollYProgress, [0.3, 1], [0, -100]);
             
-            <div class="footer-links">
-                <h4>Explorar</h4>
-                <ul>
-                    <li><a href="#residencias">Residencias</a></li>
-                    <li><a href="#universidades">Universidades</a></li>
-                    <li><a href="#experiencia">Experiencia</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-contact">
-                <h4>Contacto</h4>
-                <p>Email: hello@santiagoexchange.com</p>
-                <p>WhatsApp: +56 9 0000 0000</p>
-                <p>Santiago, Chile</p>
-            </div>
-        </div>
-        <div class="footer-bottom container text-center">
-            <p>&copy; 2026 Santiago Exchange. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+            const reviews = [
+                {
+                    name: "Wilmer Mendez",
+                    date: "Hace un mes",
+                    text: "Fue una muy buena experiencia. Compartí con personas de distintas nacionalidades y el ambiente fue muy agradable. Yo me quedé en la casa Baquedano y todo fue súper bien: los administradores fueron muy amables y la ubicación es excelente, cerca del metro Baquedano, lo que hace muy fácil moverse por Santiago. Totalmente recomendable para quienes vienen de intercambio."
+                },
+                {
+                    name: "Liz A Fuentes Cossio",
+                    date: "Hace 5 meses",
+                    text: "Es un espacio donde te sientes como en casa, porque convives con differentes personas y generas recuerdos agradables, es excelente para estadias de intercambio."
+                },
+                {
+                    name: "Guillermo Anais",
+                    date: "Hace un año",
+                    text: "Viví un semestre en salvador 2 y ahora en salvador 1 y debo decir que a sido muy buena experiencia. Convivir con gente de otros países en un entorno agradable. Disfrutar de fiestas y convivir también de manera hogareña :)."
+                },
+                {
+                    name: "antonella vega",
+                    date: "Hace 2 años",
+                    text: "Se recomienda, como amigable, te escuchan y tienen esa cercanía hacia las personas en sus hogares para hacerlos sentir en casa"
+                }
+            ];
 
-    <!-- Scripts -->
-    <script src="js/main.js"></script>
+            return (
+                <section className="relative min-h-[85vh] bg-brand-navy overflow-hidden flex items-center justify-center py-14">
+                    {/* Background Layer 0 */}
+                    <div className="absolute inset-0 z-0 bg-brand-navy border-t border-brand-border" style={{ backgroundImage: "url('assets/images/image_13.png')", backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center top', opacity: 0.8 }}>
+                        <div className="absolute inset-0 bg-gradient-to-t from-brand-navy via-brand-navy/60 to-brand-navy"></div>
+                    </div>
+
+                    {/* People Layer 1 - Removed per user request */}
+
+                    {/* Testimonials Layer 2 - Center Stack */}
+                    <div className="relative z-20 w-full max-w-7xl mx-auto px-6 flex justify-center mt-24">
+                        <window.Motion.motion.div 
+                            style={{ y: yPos }}
+                            className="w-full max-w-xl flex flex-col items-center"
+                        >
+                            <h2 className="font-display font-bold text-4xl md:text-5xl text-white text-center mb-16 px-4">
+                                Únete a cientos de <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#16A7C8] to-[#5B5CF6]">estudiantes</span> satisfechos
+                            </h2>
+                            <div className="flex flex-col gap-6 w-full">
+                                {reviews.map((review, i) => (
+                                    <div key={i} className="bg-[#111C2F]/80 backdrop-blur-md border border-[#1E2C45] rounded-2xl p-6 md:p-8 shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-transform hover:-translate-y-1">
+                                        <div className="flex justify-between items-start mb-4">
+                                            <div className="flex items-center gap-4">
+                                                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-brand-gradient flex items-center justify-center text-white font-bold text-xl uppercase shadow-lg border border-brand-turquoise/30">
+                                                    {review.name.charAt(0)}
+                                                </div>
+                                                <div>
+                                                    <h4 className="font-display font-bold text-[#16A7C8] text-lg leading-tight">{review.name}</h4>
+                                                    <div className="flex items-center gap-2 mt-1">
+                                                        <div className="flex text-[#16A7C8] text-sm">★★★★★</div>
+                                                        <span className="text-[#9AA6B2] text-xs font-['Inter']">• {review.date}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <svg className="w-6 h-6 shrink-0 opacity-70" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                                        </div>
+                                        <p className="font-['Inter'] text-[#F1F5F9] text-[15px] leading-relaxed italic">"{review.text}"</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </window.Motion.motion.div>
+                    </div>
+                </section>
+            );
+        };
+
+        const App = () => {
+            return (
+                <div className="font-sans antialiased text-brand-textMain selection:bg-brand-turquoise/30 selection:text-white">
+                    <Navbar />
+                    <Hero />
+                    <AttributesSection />
+                    <TrustSection />
+                    <ResidencesSection />
+                    <ExperienceSection />
+                    <ExploreChile />
+                    <ProcessCTA />
+                    <TestimonialSection />
+                    <Footer />
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
